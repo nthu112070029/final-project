@@ -15,7 +15,7 @@ namespace LevelSetting {
 	constexpr char level_path_format[] = "./assets/level/LEVEL%d.txt";
 	//! @brief Grid size for each level.
 	constexpr array<int, 4> grid_size = {
-		40, 40, 40, 40
+		85,85,85,85
 	};
 	constexpr int monster_spawn_rate = 90;
 };
@@ -51,6 +51,10 @@ Level::load_level(int lvl) {
 	grid_h = DC->game_field_length / LevelSetting::grid_size[lvl];
 	num_of_monsters.clear();
 	road_path.clear();
+	road_path1.clear();
+	road_path2.clear();
+	road_path3.clear();
+	road_path4.clear();
 
 	int num;
 	// read total number of monsters & number of each monsters
@@ -61,11 +65,42 @@ Level::load_level(int lvl) {
 	}
 
 	// read road path
-	while(fscanf(f, "%d", &num) != EOF) {
+	for(size_t i = 0; i < 7; ++i) {
+		fscanf(f, "%d", &num);
 		int w = num % grid_w;
 		int h = num / grid_h;
 		road_path.emplace_back(w, h);
 	}
+	for(size_t i = 0; i < 7; ++i) {
+		fscanf(f, "%d", &num);
+		int w = num % grid_w;
+		int h = num / grid_h;
+		road_path1.emplace_back(w, h);
+	}
+	
+	for(size_t i = 0; i < 7; ++i) {
+		fscanf(f, "%d", &num);
+		int w = num % grid_w;
+		int h = num / grid_h;
+		road_path2.emplace_back(w, h);
+	}
+	for(size_t i = 0; i < 7; ++i) {
+		fscanf(f, "%d", &num);
+		int w = num % grid_w;
+		int h = num / grid_h;
+		road_path3.emplace_back(w, h);
+	}
+	for(size_t i = 0; i < 7; ++i) {
+		fscanf(f, "%d", &num);
+		int w = num % grid_w;
+		int h = num / grid_h;
+		road_path4.emplace_back(w, h);
+	}
+	/*while(fscanf(f, "%d", &num) != EOF) {
+		int w = num % grid_w;
+		int h = num / grid_h;
+		road_path.emplace_back(w, h);
+	}*/
 	debug_log("<Level> load level %d.\n", lvl);
 }
 
@@ -97,8 +132,37 @@ Level::draw() {
 		int y1 = j * LevelSetting::grid_size[level];
 		int x2 = x1 + LevelSetting::grid_size[level];
 		int y2 = y1 + LevelSetting::grid_size[level];
-		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(255, 244, 173));
+		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,255));
 	}
+	for(auto &[i, j] : road_path1) {
+		int x1 = i * LevelSetting::grid_size[level];
+		int y1 = j * LevelSetting::grid_size[level];
+		int x2 = x1 + LevelSetting::grid_size[level];
+		int y2 = y1 + LevelSetting::grid_size[level];
+		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,250));
+	}
+	for(auto &[i, j] : road_path2) {
+		int x1 = i * LevelSetting::grid_size[level];
+		int y1 = j * LevelSetting::grid_size[level];
+		int x2 = x1 + LevelSetting::grid_size[level];
+		int y2 = y1 + LevelSetting::grid_size[level];
+		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,200));
+	}
+	for(auto &[i, j] : road_path3) {
+		int x1 = i * LevelSetting::grid_size[level];
+		int y1 = j * LevelSetting::grid_size[level];
+		int x2 = x1 + LevelSetting::grid_size[level];
+		int y2 = y1 + LevelSetting::grid_size[level];
+		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,150));
+	}
+	for(auto &[i, j] : road_path4) {
+		int x1 = i * LevelSetting::grid_size[level];
+		int y1 = j * LevelSetting::grid_size[level];
+		int x2 = x1 + LevelSetting::grid_size[level];
+		int y2 = y1 + LevelSetting::grid_size[level];
+		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,100));
+	}
+	
 }
 
 bool

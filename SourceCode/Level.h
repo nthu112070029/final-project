@@ -23,6 +23,15 @@ public:
 	Rectangle grid_to_region(const Point &grid) const;
 	const std::vector<Point> &get_road_path() const
 	{ return road_path; }
+	const std::vector<Point> &get_road_path1() const
+	{ return road_path1; }
+	const std::vector<Point> &get_road_path2() const
+	{ return road_path2; }
+	const std::vector<Point> &get_road_path3() const
+	{ return road_path3; }
+	const std::vector<Point> &get_road_path4() const
+	{ return road_path4; }
+
 	int remain_monsters() const {
 		int res = 0;
 		for(const int &i : num_of_monsters) res += i;
@@ -33,6 +42,10 @@ private:
 	 * @brief Stores the monster's attack route, whose Point is represented in grid format.
 	 */
 	std::vector<Point> road_path;
+	std::vector<Point> road_path1;
+	std::vector<Point> road_path2;
+	std::vector<Point> road_path3;
+	std::vector<Point> road_path4;
 	/**
 	 * @brief The index of current level.
 	 */
