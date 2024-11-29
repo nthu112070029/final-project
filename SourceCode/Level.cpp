@@ -17,7 +17,11 @@ namespace LevelSetting {
 	constexpr array<int, 4> grid_size = {
 		85,85,85,85
 	};
-	constexpr int monster_spawn_rate = 90;
+	constexpr int monster_spawn_rate = 200;
+	constexpr int monster_spawn_rate1 = 300;
+	constexpr int monster_spawn_rate2 = 500;
+	constexpr int monster_spawn_rate3 = 1000;
+	constexpr int monster_spawn_rate4 = 2000;
 };
 
 void
@@ -26,6 +30,10 @@ Level::init() {
 	grid_w = -1;
 	grid_h = -1;
 	monster_spawn_counter = 0;
+	monster_spawn_counter1 = 0;
+	monster_spawn_counter2 = 0;
+	monster_spawn_counter3 = 0;
+	monster_spawn_counter4 = 0;
 }
 
 /**
@@ -96,11 +104,7 @@ Level::load_level(int lvl) {
 		int h = num / grid_h;
 		road_path4.emplace_back(w, h);
 	}
-	/*while(fscanf(f, "%d", &num) != EOF) {
-		int w = num % grid_w;
-		int h = num / grid_h;
-		road_path.emplace_back(w, h);
-	}*/
+	
 	debug_log("<Level> load level %d.\n", lvl);
 }
 
@@ -109,19 +113,73 @@ Level::load_level(int lvl) {
 */
 void
 Level::update() {
-	if(monster_spawn_counter) {
+	if(monster_spawn_counter && monster_spawn_counter1 && monster_spawn_counter2&& monster_spawn_counter3 ) {
 		monster_spawn_counter--;
+		monster_spawn_counter1--;
+		monster_spawn_counter2--;
+		monster_spawn_counter3--;
+		//monster_spawn_counter4--;
 		return;
 	}
 	DataCenter *DC = DataCenter::get_instance();
 
-	for(size_t i = 0; i < num_of_monsters.size(); ++i) {
-		if(num_of_monsters[i] == 0) continue;
-		DC->monsters.emplace_back(Monster::create_monster(static_cast<MonsterType>(i), DC->level->get_road_path()));
-		num_of_monsters[i]--;
-		break;
+	if(monster_spawn_counter<=0)
+	{
+		if(num_of_monsters[0] > 0) 
+		{
+			DC->monsters.emplace_back(Monster::create_monster(static_cast<MonsterType>(0), DC->level->get_road_path()));
+			num_of_monsters[0]--;
+		}
+
+		monster_spawn_counter = LevelSetting::monster_spawn_rate;
+		monster_spawn_counter1--;
+		monster_spawn_counter2--;
+		monster_spawn_counter3--;
+		//monster_spawn_counter4--;
 	}
-	monster_spawn_counter = LevelSetting::monster_spawn_rate;
+	 if(monster_spawn_counter1<=0)
+	{
+		if(num_of_monsters[1] > 0) 
+		{
+			DC->monsters.emplace_back(Monster::create_monster(static_cast<MonsterType>(1), DC->level->get_road_path1()));
+			num_of_monsters[1]--;
+		}
+
+		monster_spawn_counter1 = LevelSetting::monster_spawn_rate1;
+		monster_spawn_counter--;
+		monster_spawn_counter2--;
+		monster_spawn_counter3--;
+		//monster_spawn_counter4--;
+	}
+	 if(monster_spawn_counter2<=0)
+	{
+		if(num_of_monsters[2] > 0) 
+		{
+			DC->monsters.emplace_back(Monster::create_monster(static_cast<MonsterType>(2), DC->level->get_road_path2()));
+			num_of_monsters[2]--;
+		}
+		monster_spawn_counter2 = LevelSetting::monster_spawn_rate2;
+		monster_spawn_counter1--;
+		monster_spawn_counter--;
+		monster_spawn_counter3--;
+		//monster_spawn_counter4--;
+	}
+	 if(monster_spawn_counter3<=0)
+	{
+		if(num_of_monsters[3] > 0) 
+		{
+			DC->monsters.emplace_back(Monster::create_monster(static_cast<MonsterType>(3), DC->level->get_road_path3()));
+			num_of_monsters[3]--;
+		}
+		monster_spawn_counter3 = LevelSetting::monster_spawn_rate3;
+		monster_spawn_counter1--;
+		monster_spawn_counter2--;
+		monster_spawn_counter--;
+		//monster_spawn_counter4--;
+	}
+	
+
+
 }
 
 void

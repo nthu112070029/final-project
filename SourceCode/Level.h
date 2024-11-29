@@ -62,6 +62,10 @@ private:
 	 * @brief Time remaining for the next monster to spawn.
 	 */
 	int monster_spawn_counter;
+	int monster_spawn_counter1;
+	int monster_spawn_counter2;
+	int monster_spawn_counter3;
+	int monster_spawn_counter4;
 	/**
 	 * @brief Number of each different type of monsters.
 	 */
