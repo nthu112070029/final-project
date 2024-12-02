@@ -4,6 +4,7 @@
 #include "../hero.h"
 #include "../Player.h"
 #include "../monsters/Monster.h"
+#include "../fish/Fish.h"
 #include "../towers/Tower.h"
 #include "../towers/Bullet.h"
 
@@ -28,6 +29,7 @@ DataCenter::DataCenter() {
 	player = new Player();
 	level = new Level();
 	hero = new Hero();
+	
 }
 
 DataCenter::~DataCenter() {
@@ -35,6 +37,9 @@ DataCenter::~DataCenter() {
 	delete level;
 	for(Monster *&m : monsters) {
 		delete m;
+	}
+	for(Fish *&f : fishs) {
+		delete f;
 	}
 	for(Tower *&t : towers) {
 		delete t;

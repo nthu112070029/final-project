@@ -2,6 +2,7 @@
 #include <string>
 #include "Utils.h"
 #include "monsters/Monster.h"
+#include "fish/Fish.h"
 #include "data/DataCenter.h"
 #include <allegro5/allegro_primitives.h>
 #include "shapes/Point.h"
@@ -21,7 +22,7 @@ namespace LevelSetting {
 	constexpr int monster_spawn_rate1 = 300;
 	constexpr int monster_spawn_rate2 = 500;
 	constexpr int monster_spawn_rate3 = 1000;
-	constexpr int monster_spawn_rate4 = 2000;
+	constexpr int monster_spawn_rate4 = 200;
 };
 
 void
@@ -127,7 +128,7 @@ Level::update() {
 	{
 		if(num_of_monsters[0] > 0) 
 		{
-			DC->monsters.emplace_back(Monster::create_monster(static_cast<MonsterType>(0), DC->level->get_road_path()));
+			DC->fishs.emplace_back(Fish::create_Fish(static_cast<FishType>(1), DC->level->get_road_path()));
 			num_of_monsters[0]--;
 		}
 
@@ -141,7 +142,7 @@ Level::update() {
 	{
 		if(num_of_monsters[1] > 0) 
 		{
-			DC->monsters.emplace_back(Monster::create_monster(static_cast<MonsterType>(1), DC->level->get_road_path1()));
+			DC->fishs.emplace_back(Fish::create_Fish(static_cast<FishType>(0), DC->level->get_road_path1()));
 			num_of_monsters[1]--;
 		}
 
@@ -155,7 +156,7 @@ Level::update() {
 	{
 		if(num_of_monsters[2] > 0) 
 		{
-			DC->monsters.emplace_back(Monster::create_monster(static_cast<MonsterType>(2), DC->level->get_road_path2()));
+			DC->fishs.emplace_back(Fish::create_Fish(static_cast<FishType>(2), DC->level->get_road_path2()));
 			num_of_monsters[2]--;
 		}
 		monster_spawn_counter2 = LevelSetting::monster_spawn_rate2;
@@ -168,7 +169,7 @@ Level::update() {
 	{
 		if(num_of_monsters[3] > 0) 
 		{
-			DC->monsters.emplace_back(Monster::create_monster(static_cast<MonsterType>(3), DC->level->get_road_path3()));
+				DC->fishs.emplace_back(Fish::create_Fish(static_cast<FishType>(3), DC->level->get_road_path3()));
 			num_of_monsters[3]--;
 		}
 		monster_spawn_counter3 = LevelSetting::monster_spawn_rate3;

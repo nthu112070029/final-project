@@ -1,6 +1,7 @@
 #include "OperationCenter.h"
 #include "DataCenter.h"
 #include "../monsters/Monster.h"
+#include "../fish/Fish.h"
 #include "../towers/Tower.h"
 #include "../towers/Bullet.h"
 #include "../Player.h"
@@ -8,6 +9,7 @@
 void OperationCenter::update() {
 	// Update monsters.
 	_update_monster();
+	_update_fish();
 	// Update towers.
 	_update_tower();
 	// Update tower bullets.
@@ -22,6 +24,11 @@ void OperationCenter::_update_monster() {
 	std::vector<Monster*> &monsters = DataCenter::get_instance()->monsters;
 	for(Monster *monster : monsters)
 		monster->update();
+}
+void OperationCenter::_update_fish() {
+	std::vector<Fish*> &fishs = DataCenter::get_instance()->fishs;
+	for(Fish *fish: fishs)
+		fish->update();
 }
 
 void OperationCenter::_update_tower() {
@@ -85,6 +92,7 @@ void OperationCenter::_update_monster_player() {
 
 void OperationCenter::draw() {
 	_draw_monster();
+	_draw_fish();
 	_draw_tower();
 	_draw_towerBullet();
 }
@@ -93,6 +101,11 @@ void OperationCenter::_draw_monster() {
 	std::vector<Monster*> &monsters = DataCenter::get_instance()->monsters;
 	for(Monster *monster : monsters)
 		monster->draw();
+}
+void OperationCenter::_draw_fish() {
+	std::vector<Fish*> &fishs = DataCenter::get_instance()->fishs;
+	for(Fish *fish : fishs)
+		fish->draw();
 }
 
 void OperationCenter::_draw_tower() {
