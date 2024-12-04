@@ -143,6 +143,11 @@ UI::draw() {
 		FC->courier_new[FontSize::MEDIUM], al_map_rgb(0, 0, 0),
 		game_field_length+love_img_padding, love_img_padding,
 		ALLEGRO_ALIGN_LEFT, "coin: %5d", player_coin);
+		const int &player_countdown = DC->player->countdown;
+	al_draw_textf(
+		FC->courier_new[FontSize::MEDIUM], al_map_rgb(0, 0, 0),
+		0, 0,
+		ALLEGRO_ALIGN_LEFT, "countdown: %5d", player_countdown);
 	// draw tower shop items
 	for(auto &[bitmap, p, price] : tower_items) {
 		int w = al_get_bitmap_width(bitmap);

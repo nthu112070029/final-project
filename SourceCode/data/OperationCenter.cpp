@@ -28,7 +28,15 @@ void OperationCenter::_update_monster() {
 void OperationCenter::_update_fish() {
 	std::vector<Fish*> &fishs = DataCenter::get_instance()->fishs;
 	for(Fish *fish: fishs)
-		fish->update();
+		{fish->update();}
+		for(size_t i = 0; i < fishs.size(); ++i) {
+		
+		// Check if the fish reaches the end.
+		if(fishs[i]->get_path().empty()) {
+			fishs.erase(fishs.begin()+i);
+			--i;
+		}
+	}
 }
 
 void OperationCenter::_update_tower() {
