@@ -132,11 +132,6 @@ UI::draw() {
 	const Point &mouse = DC->mouse;
 	// draw HP
 	const int &game_field_length = DC->game_field_length;
-	const int &player_HP = DC->player->HP;
-	int love_width = al_get_bitmap_width(love);
-	for(int i = 1; i <= player_HP; ++i) {
-		al_draw_bitmap(love, game_field_length - (love_width + love_img_padding) * i, love_img_padding, 0);
-	}
 	// draw coin
 	const int &player_coin = DC->player->coin;
 	al_draw_textf(
@@ -144,10 +139,17 @@ UI::draw() {
 		game_field_length+love_img_padding, love_img_padding,
 		ALLEGRO_ALIGN_LEFT, "coin: %5d", player_coin);
 		const int &player_countdown = DC->player->countdown;
+		//draw countdown
 	al_draw_textf(
 		FC->courier_new[FontSize::MEDIUM], al_map_rgb(0, 0, 0),
 		0, 0,
-		ALLEGRO_ALIGN_LEFT, "countdown: %5d", player_countdown);
+		ALLEGRO_ALIGN_LEFT, "countdown: %4d", player_countdown);
+		const int &player_goal = DC->player->goal;
+	//draw goal
+	al_draw_textf(
+		FC->courier_new[FontSize::MEDIUM], al_map_rgb(0, 0, 0),
+		350, 0,
+		ALLEGRO_ALIGN_LEFT, "goal: %4d coin", player_goal);
 	// draw tower shop items
 	for(auto &[bitmap, p, price] : tower_items) {
 		int w = al_get_bitmap_width(bitmap);

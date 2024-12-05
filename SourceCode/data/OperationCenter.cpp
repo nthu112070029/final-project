@@ -92,7 +92,6 @@ void OperationCenter::_update_monster_player() {
 		// Check if the monster reaches the end.
 		if(monsters[i]->get_path().empty()) {
 			monsters.erase(monsters.begin()+i);
-			player->HP--;
 			--i;
 		}
 	}

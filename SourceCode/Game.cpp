@@ -163,6 +163,7 @@ Game::game_update() {
 				instance = SC->play(game_start_sound_path, ALLEGRO_PLAYMODE_ONCE);
 				DC->level->load_level(1);
 				DC->player->countdown=DC->level->time;
+				DC->player->goal=DC->level->goal;
 				is_played = true;
 			}
 
@@ -187,13 +188,17 @@ Game::game_update() {
 				debug_log("<Game> state: change to END\n");
 				state = STATE::END;
 			}
-			if(DC->player->HP == 0) {
+		
+			if(DC->player->countdown==0 && DC->player->coin< DC->player->goal){
 				debug_log("<Game> state: change to END\n");
 				state = STATE::END;
 			}
-			if(DC->player->countdown==0){
-				debug_log("<Game> state: change to END\n");
-				state = STATE::END;
+			if(DC->player->countdown==0 && DC->player->coin>=DC->player->goal){
+				debug_log("<Game> state: change to Level\n");
+				DC->level->load_level(2);
+				DC->player->countdown=DC->level->time;
+				DC->player->goal=DC->level->goal;
+				
 			}
 			break;
 		} case STATE::PAUSE: {

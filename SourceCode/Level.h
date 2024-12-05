@@ -38,6 +38,7 @@ public:
 		return res;
 	}
 	int time;
+	int goal;
 private:
 	/**
 	 * @brief Stores the monster's attack route, whose Point is represented in grid format.

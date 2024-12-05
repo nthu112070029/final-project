@@ -69,6 +69,8 @@ Level::load_level(int lvl) {
 	// load time
 	fscanf(f, "%d", &num);
 	time=num;
+	fscanf(f, "%d", &num);
+	goal=num;
 	// read total number of monsters & number of each monsters
 	for(size_t i = 0; i < static_cast<size_t>(MonsterType::MONSTERTYPE_MAX); ++i) {
 		fscanf(f, "%d", &num);
