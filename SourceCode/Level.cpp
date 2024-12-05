@@ -66,8 +66,10 @@ Level::load_level(int lvl) {
 	road_path4.clear();
 
 	int num;
-	// read total number of monsters & number of each monsters
+	// load time
 	fscanf(f, "%d", &num);
+	time=num;
+	// read total number of monsters & number of each monsters
 	for(size_t i = 0; i < static_cast<size_t>(MonsterType::MONSTERTYPE_MAX); ++i) {
 		fscanf(f, "%d", &num);
 		num_of_monsters.emplace_back(num);

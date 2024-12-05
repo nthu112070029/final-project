@@ -8,7 +8,7 @@ public:
 	void update();
 	int HP;
 	int coin;
-	int countdown=60;
+	int countdown;
 private:
 	int coin_freq;
 	int coin_increase;

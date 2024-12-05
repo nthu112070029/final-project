@@ -37,6 +37,7 @@ public:
 		for(const int &i : num_of_monsters) res += i;
 		return res;
 	}
+	int time;
 private:
 	/**
 	 * @brief Stores the monster's attack route, whose Point is represented in grid format.

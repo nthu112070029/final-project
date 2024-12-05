@@ -162,6 +162,7 @@ Game::game_update() {
 			if(!is_played) {
 				instance = SC->play(game_start_sound_path, ALLEGRO_PLAYMODE_ONCE);
 				DC->level->load_level(1);
+				DC->player->countdown=DC->level->time;
 				is_played = true;
 			}
 
@@ -187,6 +188,10 @@ Game::game_update() {
 				state = STATE::END;
 			}
 			if(DC->player->HP == 0) {
+				debug_log("<Game> state: change to END\n");
+				state = STATE::END;
+			}
+			if(DC->player->countdown==0){
 				debug_log("<Game> state: change to END\n");
 				state = STATE::END;
 			}
