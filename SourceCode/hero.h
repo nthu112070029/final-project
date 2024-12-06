@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 enum class Herostate{
-	left, right, front , back,herostatamax
+	left, right, front,herostatamax
 };
 class Hero : public Object
 {
