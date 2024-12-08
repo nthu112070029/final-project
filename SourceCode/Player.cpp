@@ -2,7 +2,7 @@
 
 // fixed settings
 namespace PlayerSetting {
-	constexpr int init_coin = 0;
+	constexpr int init_coin = 100;
 	constexpr int time_freq = 60;
 };
 

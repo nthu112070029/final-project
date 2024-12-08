@@ -8,6 +8,9 @@
 #include "Player.h"
 #include "Level.h"
 #include "hero.h"
+
+#include "fishingRod/Hook.h"
+#include "fishingRod/Rod.h"
 //add hare
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
@@ -134,6 +137,8 @@ Game::game_init() {
 
 	DC->level->init();
 	DC->hero->init();
+	DC->rod->init();
+	DC->hook->init();
 //add here
 	// game start
 	background = IC->get(background_img_path);
@@ -220,6 +225,8 @@ Game::game_update() {
 		if(state != STATE::START) {
 			DC->level->update();
 			DC->hero->update();
+			DC->hook->update();
+			DC->rod->update();
 			//add here
 			OC->update();
 		}
@@ -258,6 +265,8 @@ Game::game_draw() {
 		if(state != STATE::START) {
 			DC->level->draw();
 			DC->hero->draw();
+			DC->rod->draw();
+			DC->hook->draw();
 			// add here
 			ui->draw();
 			OC->draw();

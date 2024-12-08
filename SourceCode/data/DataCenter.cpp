@@ -7,6 +7,8 @@
 #include "../fish/Fish.h"
 #include "../towers/Tower.h"
 #include "../towers/Bullet.h"
+#include "../fishingRod/Rod.h"
+#include "../fishingRod/Hook.h"
 
 // fixed settings
 namespace DataSetting {
@@ -29,6 +31,8 @@ DataCenter::DataCenter() {
 	player = new Player();
 	level = new Level();
 	hero = new Hero();
+	rod= new Rod();
+	hook= new Hook();
 	
 }
 
