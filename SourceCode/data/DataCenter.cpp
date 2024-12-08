@@ -33,7 +33,6 @@ DataCenter::DataCenter() {
 	hero = new Hero();
 	rod= new Rod();
 	hook= new Hook();
-	
 }
 
 DataCenter::~DataCenter() {

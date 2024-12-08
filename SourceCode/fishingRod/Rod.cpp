@@ -16,6 +16,7 @@ namespace RodSetting {
 
 
 void Rod::init(){
+   type=RodType::oringin;
    for(size_t type=0 ;type<static_cast<size_t>(RodType::maxtype);type++){
         for(size_t state=0 ;state<static_cast<size_t>(Rodstate::maxstate);state++){
         char buffer[50];
@@ -25,6 +26,16 @@ void Rod::init(){
 		    RodSetting::state_path_prefix[static_cast<int>(state)]);
             imgpath[static_cast<RodType>(type)][static_cast<Rodstate>(state)]=std::string(buffer);
     }}
+    switch(type){
+      case RodType::oringin:
+         damage = 30;
+         break;
+      case RodType::plus:
+         damage = 50;
+         break;
+      default:
+         damage = 20;
+    }
     ImageCenter *IC = ImageCenter::get_instance();
     ALLEGRO_BITMAP *bitmap=IC->get(imgpath [type][state]);
     DataCenter *DC = DataCenter::get_instance();

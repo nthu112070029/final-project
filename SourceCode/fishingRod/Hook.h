@@ -23,7 +23,7 @@ public:
 	double vx=0;
     double vy=100;
     double speed=5.0;
-    bool fishcaught=false;//魚有沒有被抓到
+    static bool fishcaught;//魚有沒有被抓到
 	Hooktype type;
     Hookstate state;
 	ALLEGRO_BITMAP *bitmap;

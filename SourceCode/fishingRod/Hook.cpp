@@ -5,14 +5,15 @@
 #include "../shapes/Point.h"
 #include <algorithm>
 #include <allegro5/bitmap_draw.h>
+#include <iostream>
 
-
+bool Hook::fishcaught = false;
 
 void Hook::init()
 {
      type=Hooktype::oringin;
      state=Hookstate::up;
-
+    
 ImageCenter *IC = ImageCenter::get_instance();
     bitmap = IC->get("./assets/image/Hook/origin.png");
 	
@@ -48,24 +49,35 @@ Hook::update() {
                 state=Hookstate::down;
                 break;
             }
+            else if(shape->center_y()<DC->window_height/7){
+                vy=100;
+                state = Hookstate::up;
+                fishcaught=false;
+            }  
              case Hookstate::down:
             {
                  
-               double dx = vx / DC->FPS;
+                 double dx = vx / DC->FPS;
 	             double dy = vy / DC->FPS;
                
 	
-            if(shape->center_y()>DC->window_height  || fishcaught)
-            {
-                    vy=-vy;
+            if(shape->center_y()>DC->window_height||fishcaught  )
+            {       
+                    
+                    vy = -100;
                     dx = vx / DC->FPS;
-                    dy=vy / DC->FPS;
-
+                    dy = vy / DC->FPS;
+                    if(shape->center_y()<DC->window_height/7){
+                        vy=100;
+                        fishcaught=false;
+                    }                                      
+                
             }
+
                 //shape->update_center_x(shape->center_x() + dx);
 	                shape->update_center_y(shape->center_y() + dy);
                     return; 
-	                 state = Hookstate::up;
+                    state = Hookstate::up;
                      break;
             }
         

@@ -5,7 +5,9 @@
 #include "../towers/Tower.h"
 #include "../towers/Bullet.h"
 #include "../Player.h"
-
+#include "../fishingRod/Hook.h"
+#include "../fishingRod/Rod.h"
+#include <iostream>
 void OperationCenter::update() {
 	// Update monsters.
 	_update_monster();
@@ -18,6 +20,7 @@ void OperationCenter::update() {
 	_update_monster_towerBullet();
 	// If any monster reaches the end, hurt the player and delete the monster.
 	_update_monster_player();
+	_update_fish_rodHook();
 	
 }
 
@@ -72,6 +75,24 @@ void OperationCenter::_update_monster_towerBullet() {
 				towerBullets.erase(towerBullets.begin()+j);
 				--j;
 			}
+		}
+	}
+}
+void OperationCenter::_update_fish_rodHook() {
+	DataCenter *DC = DataCenter::get_instance();
+	std::vector<Fish*> &fishs = DC->fishs;
+	Rod *rod = DC->rod;
+	for(size_t i = 0; i < fishs.size(); ++i){
+		if(fishs[i]->shape->overlap(*(DC->hook->shape))){
+			
+			fishs[i]->HP-=rod->damage;
+			if(fishs[i]->HP<=0)
+				Hook::fishcaught = true;
+			Player *&player = DC->player;
+			player->coin +=fishs[i]->get_money();
+			fishs.erase(fishs.begin()+i);
+			--i;
+			break;
 		}
 	}
 }

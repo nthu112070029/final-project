@@ -27,6 +27,7 @@ public:
 	RodType type=RodType::oringin;
 	std::map<RodType ,std::map<Rodstate,std::string>> imgpath;
 	 double speed=5;
+	 int damage=30;
 	 
 private:
 	ALLEGRO_BITMAP *bitmap;

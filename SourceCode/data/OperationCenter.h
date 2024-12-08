@@ -31,13 +31,13 @@ private:
 	void _update_towerBullet();
 	void _update_monster_towerBullet();
 	void _update_monster_player();
+	void _update_fish_rodHook();
 	
 private:
 	void _draw_monster();
 	void _draw_fish();
 	void _draw_tower();
 	void _draw_towerBullet();
-	
 };
 
 #endif
