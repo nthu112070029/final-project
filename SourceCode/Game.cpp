@@ -172,7 +172,7 @@ Game::game_update() {
 				is_played = true;
 			}
 
-			if(!SC->is_playing(instance)) {
+			if(!SC->is_playing(instance)&&DC->key_state[ALLEGRO_KEY_ENTER]) {
 				debug_log("<Game> state: change to LEVEL\n");
 				state = STATE::LEVEL;
 			}
@@ -260,7 +260,8 @@ Game::game_draw() {
 			al_draw_filled_rectangle(
 				0, DC->game_field_length,
 				DC->window_width, DC->window_height,
-				al_map_rgb(100, 100, 100));
+				al_map_rgb(100, 
+				100, 100));
 		// user interface
 		if(state != STATE::START) {
 			DC->level->draw();
@@ -274,6 +275,16 @@ Game::game_draw() {
 	}
 	switch(state) {
 		case STATE::START: {
+			al_draw_text(
+				FC->caviar_dreams[FontSize::LARGE], al_map_rgb(255, 255, 255),
+				DC->window_width/2., DC->window_height/4.,
+				ALLEGRO_ALIGN_CENTRE, "G A M E    N A M E");
+			
+			al_draw_text(
+				FC->caviar_dreams[FontSize::LARGE], al_map_rgb(255, 255, 255),
+				DC->window_width/2., DC->window_height/3*2.,
+				ALLEGRO_ALIGN_CENTRE, "Press Enter to continue");
+
 		} case STATE::LEVEL: {
 			break;
 		} case STATE::PAUSE: {

@@ -45,12 +45,11 @@ Hook::update() {
             }
             else if(DC->key_state[ALLEGRO_KEY_S]||DC->key_state[ALLEGRO_KEY_DOWN])
             {
-              
                 state=Hookstate::down;
                 break;
             }
             else if(shape->center_y()<DC->window_height/7){
-                vy=100;
+                vy=100;//出水面碰到人鉤子轉向
                 state = Hookstate::up;
                 fishcaught=false;
             }  
@@ -63,15 +62,16 @@ Hook::update() {
 	
             if(shape->center_y()>DC->window_height||fishcaught  )
             {       
-                    
+                    state = Hookstate::up;
+                    fishcaught=true;//避免從下面往上勾到魚
                     vy = -100;
                     dx = vx / DC->FPS;
                     dy = vy / DC->FPS;
+
                     if(shape->center_y()<DC->window_height/7){
                         vy=100;
-                        fishcaught=false;
-                    }                                      
-                
+                        fishcaught=false;   
+                    }                         
             }
 
                 //shape->update_center_x(shape->center_x() + dx);

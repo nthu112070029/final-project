@@ -83,15 +83,16 @@ void OperationCenter::_update_fish_rodHook() {
 	std::vector<Fish*> &fishs = DC->fishs;
 	Rod *rod = DC->rod;
 	for(size_t i = 0; i < fishs.size(); ++i){
-		if(fishs[i]->shape->overlap(*(DC->hook->shape))){
+		if(fishs[i]->shape->overlap(*(DC->hook->shape))&&Hook::fishcaught==false){
 			
 			fishs[i]->HP-=rod->damage;
-			if(fishs[i]->HP<=0)
+			if(fishs[i]->HP<=0){
 				Hook::fishcaught = true;
-			Player *&player = DC->player;
-			player->coin +=fishs[i]->get_money();
-			fishs.erase(fishs.begin()+i);
-			--i;
+				Player *&player = DC->player;
+				player->coin +=fishs[i]->get_money();//要解決不erase的情況下 每overlap一次就算damage跟get_money會重複算很多次
+				fishs.erase(fishs.begin()+i);
+				--i;
+			}
 			break;
 		}
 	}
