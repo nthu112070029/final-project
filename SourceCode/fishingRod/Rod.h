@@ -32,9 +32,10 @@ public:
 	  double x;
 	  double y;
 	ALLEGRO_BITMAP *bitmap;
-private:
+	Rodstate state=Rodstate::up;
+
 	
-    Rodstate state=Rodstate::up;
+    
 	
 };
 

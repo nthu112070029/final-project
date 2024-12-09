@@ -59,11 +59,11 @@ Hook::update() {
              case Hookstate::down:
             {
                  
-                
+                static int run=0;
 	             double dy = vy / DC->FPS;
-                int run=0;
-	
-            if(shape->center_y()>DC->window_height||fishcaught  )
+               
+               
+            if(shape->center_y()>DC->window_height-50||fishcaught  )
             {       
                    
                     vy = -100;
@@ -77,6 +77,8 @@ Hook::update() {
                
                         vy=100;
                         fishcaught=false;
+                        run=0;
+                        
                           state = Hookstate::up;
                           break;   
             }   

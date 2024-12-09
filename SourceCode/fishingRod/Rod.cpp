@@ -73,7 +73,7 @@ void Rod::update()
                 return ;
             }
          case Rodstate::down:
-            state=Rodstate::up;
+            //state=Rodstate::up;
            case Rodstate::maxstate:
            return;
 
@@ -92,7 +92,18 @@ void Rod::draw(){
 		bitmap,
 		shape->center_x() - al_get_bitmap_width(bitmap) / 2,
 		shape->center_y() - al_get_bitmap_height(bitmap) / 2, 0);
-       x=shape->center_x()+(al_get_bitmap_width(bitmap) / 2);
-      y=shape->center_y()-(al_get_bitmap_height(bitmap) / 2);
+      switch (state)
+      {
+      case Rodstate::up:
+          x=shape->center_x()+(al_get_bitmap_width(bitmap) / 2);
+         y=shape->center_y()-(al_get_bitmap_height(bitmap) / 2);
+         break;
+       case Rodstate::down:
+          x=shape->center_x()+(al_get_bitmap_width(bitmap) / 2);
+         y=shape->center_y()+(al_get_bitmap_height(bitmap) / 2);
+      default:
+         break;
+      }
+      
 }
 //

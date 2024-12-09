@@ -23,6 +23,7 @@ void OperationCenter::update() {
 	_update_monster_player();
 
 	_update_fish_Hook() ;
+	_update_rod_Hook() ;
 	
 }
 
@@ -89,12 +90,22 @@ std::vector<Fish*> &fishs = DC->fishs;
 		if(fishs[i]->shape->overlap(*(hook->shape))&&Hook::fishcaught==false){
 				Hook::fishcaught = true;
 				Player *&player = DC->player;
-				player->coin +=fishs[i]->get_money();//要解決不erase的情況下 每overlap一次就算damage跟get_money會重複算很多次
+				player->coin +=fishs[i]->get_money();
 				fishs.erase(fishs.begin()+i);
 				--i;
 			break;
 		}
 	}
+
+}
+void OperationCenter::_update_rod_Hook() {
+	DataCenter *DC = DataCenter::get_instance();
+		Hook*hook = DC->hook;
+		Rod *rod=DC->rod;
+		if(hook->state==Hookstate::up)
+		{
+			rod->state=Rodstate::up;
+		}
 
 }
 
