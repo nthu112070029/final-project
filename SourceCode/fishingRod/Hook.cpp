@@ -50,7 +50,7 @@ Hook::update() {
                 state=Hookstate::down;
                 break;
             }
-            else if(shape->center_y()<DC->window_height/7){
+             if(shape->center_y()<DC->window_height/7){
                 vy=100;//出水面碰到人鉤子轉向
                 state = Hookstate::up;
                 fishcaught=false;
@@ -73,7 +73,7 @@ Hook::update() {
                    
                                         
             }
-             if(shape->center_y()<DC->window_height*0+150 && run){
+             if(shape->center_y()<150 && run){
                
                         vy=100;
                         fishcaught=false;
@@ -93,11 +93,15 @@ Hook::update() {
 void
 Hook::draw() {
     ImageCenter *IC = ImageCenter::get_instance();
-    if(type==Hooktype::oringin)
+    if(fishcaught)
+    {
+         bitmap = IC->get("./assets/image/Hook/get.png");
+    }
+    else if(type==Hooktype::oringin)
     {
         bitmap = IC->get("./assets/image/Hook/origin.png");
     }
-    else{
+    else  if(type==Hooktype::plus){
         bitmap = IC->get("./assets/image/Hook/plus.png");
         
     }

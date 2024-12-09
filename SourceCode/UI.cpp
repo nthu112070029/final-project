@@ -20,7 +20,7 @@ constexpr int tower_img_top_padding = 30;
 
 void
 UI::init() {
-	DataCenter *DC = DataCenter::get_instance();
+	/*DataCenter *DC = DataCenter::get_instance();
 	ImageCenter *IC = ImageCenter::get_instance();
 	love = IC->get(love_img_path);
 	int tl_x = DC->game_field_length + tower_img_left_padding;
@@ -39,7 +39,7 @@ UI::init() {
 		tower_items.emplace_back(bitmap, Point{tl_x, tl_y}, TowerSetting::tower_price[i]);
 		tl_x += w + tower_img_left_padding;
 		max_height = std::max(max_height, h);
-	}
+	}*/
 	debug_log("<UI> state: change to HALT\n");
 	state = STATE::HALT;
 	on_item = -1;
@@ -142,14 +142,14 @@ UI::draw() {
 		//draw countdown
 	al_draw_textf(
 		FC->courier_new[FontSize::MEDIUM], al_map_rgb(0, 0, 0),
-		0, 0,
-		ALLEGRO_ALIGN_LEFT, "countdown: %4d", player_countdown);
+		game_field_length+love_img_padding, 30,
+		ALLEGRO_ALIGN_LEFT, "countdown:%4d", player_countdown);
 		const int &player_goal = DC->player->goal;
 	//draw goal
 	al_draw_textf(
 		FC->courier_new[FontSize::MEDIUM], al_map_rgb(0, 0, 0),
-		350, 0,
-		ALLEGRO_ALIGN_LEFT, "goal: %4d coin", player_goal);
+		game_field_length+love_img_padding, 60,
+		ALLEGRO_ALIGN_LEFT, "goal:%4d coin", player_goal);
 	// draw tower shop items
 	for(auto &[bitmap, p, price] : tower_items) {
 		int w = al_get_bitmap_width(bitmap);
