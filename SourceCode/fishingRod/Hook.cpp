@@ -65,7 +65,7 @@ Hook::update() {
                
             if(shape->center_y()>DC->window_height-50||fishcaught  )
             {       
-                   
+                   fishcaught=true;
                     vy = -100;
                     dy = vy / DC->FPS;
                     run=1;
@@ -73,7 +73,7 @@ Hook::update() {
                    
                                         
             }
-             if(shape->center_y()<DC->window_height/7 && run){
+             if(shape->center_y()<DC->window_height*0+150 && run){
                
                         vy=100;
                         fishcaught=false;
@@ -87,7 +87,6 @@ Hook::update() {
                     
             }
         
-
    }
 }
 

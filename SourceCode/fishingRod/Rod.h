@@ -24,6 +24,7 @@ public:
     void init();
 	void update();
 	void draw();
+	RodType get_type() const { return this->type; }
 	RodType type=RodType::oringin;
 	std::map<RodType ,std::map<Rodstate,std::string>> imgpath;
 	 double speed=5;
@@ -31,11 +32,8 @@ public:
 	 int damage;
 	  double x;
 	  double y;
-	ALLEGRO_BITMAP *bitmap;
-	Rodstate state=Rodstate::up;
-
-	
-    
+	ALLEGRO_BITMAP *bitmap;	
+    Rodstate state=Rodstate::up;
 	
 };
 

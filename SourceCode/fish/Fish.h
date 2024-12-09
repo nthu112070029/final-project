@@ -23,7 +23,7 @@ public:
 	void update();
 	void draw();
 	const int &get_money() const { return money; }
-	int HP;
+	FishType get_type() const { return this->type; }
 	const std::queue<Point> &get_path() const { return path; }
 protected:
 	
