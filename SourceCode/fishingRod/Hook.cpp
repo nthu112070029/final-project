@@ -27,6 +27,8 @@ ImageCenter *IC = ImageCenter::get_instance();
 void
 Hook::update() {
  DataCenter *DC = DataCenter::get_instance();
+
+   
    switch(state)
    {
            
@@ -53,32 +55,34 @@ Hook::update() {
                 state = Hookstate::up;
                 fishcaught=false;
             }  
+            break;
              case Hookstate::down:
             {
                  
-                 double dx = vx / DC->FPS;
+                
 	             double dy = vy / DC->FPS;
-               
+                int run=0;
 	
             if(shape->center_y()>DC->window_height||fishcaught  )
             {       
-                    state = Hookstate::up;
-                    fishcaught=true;//避免從下面往上勾到魚
+                   
                     vy = -100;
-                    dx = vx / DC->FPS;
                     dy = vy / DC->FPS;
-
-                    if(shape->center_y()<DC->window_height/7){
-                        vy=100;
-                        fishcaught=false;   
-                    }                         
+                    run=1;
+                  
+                   
+                                        
             }
-
-                //shape->update_center_x(shape->center_x() + dx);
+             if(shape->center_y()<DC->window_height/7 && run){
+               
+                        vy=100;
+                        fishcaught=false;
+                          state = Hookstate::up;
+                          break;   
+            }   
 	                shape->update_center_y(shape->center_y() + dy);
                     return; 
-                    state = Hookstate::up;
-                     break;
+                    
             }
         
 
@@ -100,5 +104,7 @@ Hook::draw() {
 		bitmap,
 		shape->center_x() - al_get_bitmap_width(bitmap) / 2,
 		shape->center_y() - al_get_bitmap_height(bitmap) / 2, 0);
-        //al_draw_line(P.x, P.y,shape->center_x() - al_get_bitmap_width(bitmap), shape->center_y() - al_get_bitmap_height(bitmap), al_map_rgb(200, 200, 200), 2);
+         x=shape->center_x();
+        y=shape->center_y()-(al_get_bitmap_height(bitmap) / 2);
+       
 }

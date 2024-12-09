@@ -49,6 +49,7 @@ void Rod::init(){
 		
 void Rod::update()
 {
+   
    DataCenter *DC = DataCenter::get_instance();
    switch(state)
    {
@@ -91,5 +92,7 @@ void Rod::draw(){
 		bitmap,
 		shape->center_x() - al_get_bitmap_width(bitmap) / 2,
 		shape->center_y() - al_get_bitmap_height(bitmap) / 2, 0);
+       x=shape->center_x()+(al_get_bitmap_width(bitmap) / 2);
+      y=shape->center_y()-(al_get_bitmap_height(bitmap) / 2);
 }
 //

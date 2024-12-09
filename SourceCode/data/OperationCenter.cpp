@@ -8,6 +8,7 @@
 #include "../fishingRod/Hook.h"
 #include "../fishingRod/Rod.h"
 #include <iostream>
+#include<allegro5/allegro_primitives.h>
 void OperationCenter::update() {
 	// Update monsters.
 	_update_monster();
@@ -20,7 +21,8 @@ void OperationCenter::update() {
 	_update_monster_towerBullet();
 	// If any monster reaches the end, hurt the player and delete the monster.
 	_update_monster_player();
-	_update_fish_rodHook();
+
+	_update_fish_Hook() ;
 	
 }
 
@@ -78,24 +80,22 @@ void OperationCenter::_update_monster_towerBullet() {
 		}
 	}
 }
-void OperationCenter::_update_fish_rodHook() {
-	DataCenter *DC = DataCenter::get_instance();
-	std::vector<Fish*> &fishs = DC->fishs;
-	Rod *rod = DC->rod;
-	for(size_t i = 0; i < fishs.size(); ++i){
-		if(fishs[i]->shape->overlap(*(DC->hook->shape))&&Hook::fishcaught==false){
-			
-			fishs[i]->HP-=rod->damage;
-			if(fishs[i]->HP<=0){
+
+void OperationCenter::_update_fish_Hook() {
+DataCenter *DC = DataCenter::get_instance();
+std::vector<Fish*> &fishs = DC->fishs;
+	Hook*hook = DC->hook;
+		for(size_t i = 0; i < fishs.size(); ++i){
+		if(fishs[i]->shape->overlap(*(hook->shape))&&Hook::fishcaught==false){
 				Hook::fishcaught = true;
 				Player *&player = DC->player;
 				player->coin +=fishs[i]->get_money();//要解決不erase的情況下 每overlap一次就算damage跟get_money會重複算很多次
 				fishs.erase(fishs.begin()+i);
 				--i;
-			}
 			break;
 		}
 	}
+
 }
 
 void OperationCenter::_update_monster_player() {
@@ -125,6 +125,7 @@ void OperationCenter::draw() {
 	_draw_fish();
 	_draw_tower();
 	_draw_towerBullet();
+	 _draw_rod_hook();
 }
 
 void OperationCenter::_draw_monster() {
@@ -148,4 +149,15 @@ void OperationCenter::_draw_towerBullet() {
 	std::vector<Bullet*> &towerBullets = DataCenter::get_instance()->towerBullets;
 	for(Bullet *towerBullet : towerBullets)
 		towerBullet->draw();
+}
+void OperationCenter::_draw_rod_hook(){
+
+	DataCenter *DC = DataCenter::get_instance();
+	double x1=DC->hook->x;
+	double y1=DC->hook->y;
+	double x2=DC->rod->x;
+	double y2=DC->rod->y;
+	al_draw_line(x1,y1,x2,y2 ,al_map_rgb(0, 0, 0) ,3);
+
+
 }

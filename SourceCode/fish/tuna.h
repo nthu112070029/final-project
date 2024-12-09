@@ -9,7 +9,7 @@ class Tuna : public Fish
 {
     public:
 	Tuna(const std::vector<Point> &path) : Fish{path, FishType::Tuna} {
-		HP = 25;
+	
 		v = 40;
 		money = 20;
 		bitmap_img_ids.emplace_back(std::vector<int>({0, 1})); // swim
