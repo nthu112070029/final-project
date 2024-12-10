@@ -7,7 +7,7 @@
 #include "data/FontCenter.h"
 #include "Player.h"
 #include "Level.h"
-#include "hero.h"
+
 
 #include "fishingRod/Hook.h"
 #include "fishingRod/Rod.h"
@@ -136,7 +136,7 @@ Game::game_init() {
 	ui->init();
 
 	DC->level->init();
-	DC->hero->init();
+	
 	DC->rod->init();
 	DC->hook->init();
 //add here
@@ -189,10 +189,7 @@ Game::game_update() {
 				debug_log("<Game> state: change to PAUSE\n");
 				state = STATE::PAUSE;
 			}
-			if(DC->level->remain_monsters() == 0 && DC->monsters.size() == 0) {
-				debug_log("<Game> state: change to END\n");
-				state = STATE::END;
-			}
+			
 		
 			if(DC->player->countdown==0 && DC->player->coin< DC->player->goal){
 				debug_log("<Game> state: change to END\n");
@@ -224,7 +221,7 @@ Game::game_update() {
 		ui->update();
 		if(state != STATE::START) {
 			DC->level->update();
-			DC->hero->update();
+			
 			DC->hook->update();
 			DC->rod->update();
 			//add here
@@ -265,7 +262,7 @@ Game::game_draw() {
 		// user interface
 		if(state != STATE::START) {
 			DC->level->draw();
-			DC->hero->draw();
+		
 			DC->rod->draw();
 			DC->hook->draw();
 			// add here

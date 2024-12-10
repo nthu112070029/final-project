@@ -6,7 +6,6 @@
 #include "TowerStorm.h"
 #include "../Utils.h"
 #include "../shapes/Circle.h"
-#include "../monsters/Monster.h"
 #include "../shapes/Rectangle.h"
 #include "../data/DataCenter.h"
 #include "../data/ImageCenter.h"
@@ -64,13 +63,7 @@ Tower::Tower(const Point &p, double attack_range, int attack_freq, TowerType typ
 */
 void
 Tower::update() {
-	if(counter) counter--;
-	else {
-		DataCenter *DC = DataCenter::get_instance();
-		for(Monster *monster : DC->monsters) {
-			if(attack(monster)) break;
-		}
-	}
+	
 }
 
 /**

@@ -1,7 +1,7 @@
 #include "Level.h"
 #include <string>
 #include "Utils.h"
-#include "monsters/Monster.h"
+
 #include "fish/Fish.h"
 #include "data/DataCenter.h"
 #include <allegro5/allegro_primitives.h>
@@ -72,7 +72,7 @@ Level::load_level(int lvl) {
 	fscanf(f, "%d", &num);
 	goal=num;
 	// read total number of monsters & number of each monsters
-	for(size_t i = 0; i < static_cast<size_t>(MonsterType::MONSTERTYPE_MAX); ++i) {
+	for(size_t i = 0; i < static_cast<size_t>(FishType::FishTYPE_MAX); ++i) {
 		fscanf(f, "%d", &num);
 		num_of_monsters.emplace_back(num);
 	}

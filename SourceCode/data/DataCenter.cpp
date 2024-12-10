@@ -1,9 +1,9 @@
 #include "DataCenter.h"
 #include <cstring>
 #include "../Level.h"
-#include "../hero.h"
+
 #include "../Player.h"
-#include "../monsters/Monster.h"
+
 #include "../fish/Fish.h"
 #include "../towers/Tower.h"
 #include "../towers/Bullet.h"
@@ -30,7 +30,7 @@ DataCenter::DataCenter() {
 	memset(prev_mouse_state, false, sizeof(prev_mouse_state));
 	player = new Player();
 	level = new Level();
-	hero = new Hero();
+
 	rod= new Rod();
 	hook= new Hook();
 }
@@ -38,9 +38,7 @@ DataCenter::DataCenter() {
 DataCenter::~DataCenter() {
 	delete player;
 	delete level;
-	for(Monster *&m : monsters) {
-		delete m;
-	}
+	
 	for(Fish *&f : fishs) {
 		delete f;
 	}
