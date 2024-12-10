@@ -26,16 +26,7 @@ void Rod::init(){
 		    RodSetting::state_path_prefix[static_cast<int>(state)]);
             imgpath[static_cast<RodType>(type)][static_cast<Rodstate>(state)]=std::string(buffer);
     }}
-    switch(type){
-      case RodType::oringin:
-         damage = 30;
-         break;
-      case RodType::plus:
-         damage = 50;
-         break;
-      default:
-         damage = 20;
-    }
+   
     ImageCenter *IC = ImageCenter::get_instance();
     ALLEGRO_BITMAP *bitmap=IC->get(imgpath [type][state]);
     DataCenter *DC = DataCenter::get_instance();
@@ -49,7 +40,7 @@ void Rod::init(){
 		
 void Rod::update()
 {
-   
+   if(!usetimes)type=RodType::oringin;
    DataCenter *DC = DataCenter::get_instance();
    switch(state)
    {

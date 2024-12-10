@@ -120,7 +120,9 @@ void OperationCenter::_update_rod_Hook() {
 		if(hook->state==Hookstate::up)
 		{
 			rod->state=Rodstate::up;
+			if(rod->type==RodType::plus)rod->usetimes--;
 		}
+		
 
 }
 
@@ -184,4 +186,5 @@ void OperationCenter::_draw_rod_hook(){
 	double x2=DC->rod->x;
 	double y2=DC->rod->y;
 	al_draw_line(x1,y1,x2,y2 ,al_map_rgb(0, 0, 0) ,3);
+	
 }

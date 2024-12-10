@@ -28,7 +28,7 @@ public:
 	RodType type=RodType::oringin;
 	std::map<RodType ,std::map<Rodstate,std::string>> imgpath;
 	 double speed=5;
-	 
+	 int usetimes;
 	 int damage;
 	  double x;
 	  double y;

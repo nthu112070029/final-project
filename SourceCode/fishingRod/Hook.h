@@ -27,7 +27,7 @@ public:
 	Hooktype type;
     Hookstate state;
 	ALLEGRO_BITMAP *bitmap;
-  
+    int reachtop=0;
       double x;
       double y;
 };

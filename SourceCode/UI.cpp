@@ -11,7 +11,7 @@
 #include "Player.h"
 #include "towers/Tower.h"
 #include "Level.h"
-
+#include "fishingRod/Rod.h"
 // fixed settings
 constexpr char love_img_path[] = "./assets/image/love.png";
 constexpr int love_img_padding = 5;
@@ -101,23 +101,10 @@ UI::update() {
 			break;
 		} case STATE::PLACE: {
 			// check placement legality
-			ALLEGRO_BITMAP *bitmap = Tower::get_bitmap(static_cast<TowerType>(on_item));
-			int w = al_get_bitmap_width(bitmap);
-			int h = al_get_bitmap_height(bitmap);
-			Rectangle place_region{mouse.x - w / 2, mouse.y - h / 2, DC->mouse.x + w / 2, DC->mouse.y + h / 2};
-			bool place = true;
-			// tower cannot be placed on the road
-			place &= (!DC->level->is_onroad(place_region));
-			// tower cannot intersect with other towers
-			for(Tower *tower : DC->towers) {
-				place &= (!place_region.overlap(tower->get_region()));
-			}
-			if(!place) {
-				debug_log("<UI> Tower place failed.\n");
-			} else {
-				DC->towers.emplace_back(Tower::create_tower(static_cast<TowerType>(on_item), mouse));
-				DC->player->coin -= std::get<2>(tower_items[on_item]);
-			}
+			
+			DC->player->coin -=200;
+			DC->rod->usetimes=10;
+			DC->rod->type=RodType::plus;
 			debug_log("<UI> state: change to HALT\n");
 			state = STATE::HALT;
 			break;
