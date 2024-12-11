@@ -1,7 +1,7 @@
 #include "Level.h"
 #include <string>
 #include "Utils.h"
-
+#include "monsters/Monster.h"
 #include "fish/Fish.h"
 #include "data/DataCenter.h"
 #include <allegro5/allegro_primitives.h>
@@ -72,7 +72,7 @@ Level::load_level(int lvl) {
 	fscanf(f, "%d", &num);
 	goal=num;
 	// read total number of monsters & number of each monsters
-	for(size_t i = 0; i < static_cast<size_t>(FishType::FishTYPE_MAX); ++i) {
+	for(size_t i = 0; i < static_cast<size_t>(MonsterType::MONSTERTYPE_MAX); ++i) {
 		fscanf(f, "%d", &num);
 		num_of_monsters.emplace_back(num);
 	}
@@ -189,41 +189,42 @@ Level::update() {
 
 void
 Level::draw() {
+	DataCenter *DC = DataCenter::get_instance();
 	if(level == -1) return;
 	for(auto &[i, j] : road_path) {
 		int x1 = i * LevelSetting::grid_size[level];
 		int y1 = j * LevelSetting::grid_size[level];
 		int x2 = x1 + LevelSetting::grid_size[level];
 		int y2 = y1 + LevelSetting::grid_size[level];
-		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,255));
+		al_draw_filled_rectangle(x1, y1,x2 , y2, al_map_rgb(0,0,255));
 	}
 	for(auto &[i, j] : road_path1) {
 		int x1 = i * LevelSetting::grid_size[level];
 		int y1 = j * LevelSetting::grid_size[level];
 		int x2 = x1 + LevelSetting::grid_size[level];
 		int y2 = y1 + LevelSetting::grid_size[level];
-		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,250));
+		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,255));
 	}
 	for(auto &[i, j] : road_path2) {
 		int x1 = i * LevelSetting::grid_size[level];
 		int y1 = j * LevelSetting::grid_size[level];
 		int x2 = x1 + LevelSetting::grid_size[level];
 		int y2 = y1 + LevelSetting::grid_size[level];
-		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,200));
+		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,255));
 	}
 	for(auto &[i, j] : road_path3) {
 		int x1 = i * LevelSetting::grid_size[level];
 		int y1 = j * LevelSetting::grid_size[level];
 		int x2 = x1 + LevelSetting::grid_size[level];
 		int y2 = y1 + LevelSetting::grid_size[level];
-		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,150));
+		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,255));
 	}
 	for(auto &[i, j] : road_path4) {
 		int x1 = i * LevelSetting::grid_size[level];
 		int y1 = j * LevelSetting::grid_size[level];
 		int x2 = x1 + LevelSetting::grid_size[level];
 		int y2 = y1 + LevelSetting::grid_size[level];
-		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,100));
+		al_draw_filled_rectangle(x1, y1, x2, y2, al_map_rgb(0,0,255));
 	}
 	
 }

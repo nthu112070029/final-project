@@ -9,10 +9,10 @@
 
 class Player;
 class Level;
-
+class Monster;
 class Tower;
 class Bullet;
-
+class Hero;
 class Fish;
 class Rod;
 class Hook;
@@ -85,7 +85,7 @@ public:
 	 * @brief Raw list of Monster objects.
 	 * @see Monster
 	 */
-	
+	std::vector<Monster*> monsters;
 	
 	/**
 	 * @brief Raw list of Tower objects.
@@ -97,7 +97,7 @@ public:
 	 * @see Bullet
 	 */
 	std::vector<Bullet*> towerBullets;
-	
+	Hero *hero;
 	std::vector<Fish*> fishs;
 	Rod *rod;
 	Hook *hook;

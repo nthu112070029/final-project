@@ -65,23 +65,20 @@ Hook::update() {
                
             if(shape->center_y()>DC->window_height-50||fishcaught  )
             {       
-                  fishcaught=true;
+                    fishcaught=true;
                     vy = -100;
                     dy = vy / DC->FPS;
                     run=1;
-                    if(shape->center_y()>DC->window_height-50)reachtop=1;
-                  
-                   
-                                        
+                    if(shape->center_y()>DC->window_height-50)reachtop=1;                     
             }
              if(shape->center_y()<150 && run){
                
-                        vy=100;
-                        fishcaught=false;
-                        run=0;
-                        reachtop=0;
-                          state = Hookstate::up;
-                          break;   
+                    vy=100;
+                    fishcaught=false;
+                    run=0;
+                    reachtop=0;
+                    state = Hookstate::up;
+                    break;   
             }   
 	                shape->update_center_y(shape->center_y() + dy);
                     return; 
@@ -94,7 +91,7 @@ Hook::update() {
 void
 Hook::draw() {
     ImageCenter *IC = ImageCenter::get_instance();
-    if(fishcaught &&!reachtop)
+    if(fishcaught&&!reachtop)
     {
          bitmap = IC->get("./assets/image/Hook/get.png");
     }

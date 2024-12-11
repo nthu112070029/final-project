@@ -28,8 +28,8 @@ public:
     Hookstate state;
 	ALLEGRO_BITMAP *bitmap;
     int reachtop=0;
-      double x;
-      double y;
+    double x;
+    double y;
 };
 
 #endif

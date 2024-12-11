@@ -1,11 +1,8 @@
 #include "Tower.h"
 #include "TowerArcane.h"
-#include "TowerArcher.h"
-#include "TowerCanon.h"
-#include "TowerPoison.h"
-#include "TowerStorm.h"
 #include "../Utils.h"
 #include "../shapes/Circle.h"
+#include "../monsters/Monster.h"
 #include "../shapes/Rectangle.h"
 #include "../data/DataCenter.h"
 #include "../data/ImageCenter.h"
@@ -28,15 +25,8 @@ Tower::create_tower(TowerType type, const Point &p) {
 	switch(type) {
 		case TowerType::ARCANE: {
 			return new TowerArcane(p);
-		} case TowerType::ARCHER: {
-			return new TowerArcher(p);
-		} case TowerType::CANON: {
-			return new TowerCanon(p);
-		} case TowerType::POISON: {
-			return new TowerPoison(p);
-		} case TowerType::STORM: {
-			return new TowerStorm(p);
-		} case TowerType::TOWERTYPE_MAX: {}
+		} 
+case TowerType::TOWERTYPE_MAX: {}
 	}
 	GAME_ASSERT(false, "tower type error.");
 }
@@ -63,7 +53,13 @@ Tower::Tower(const Point &p, double attack_range, int attack_freq, TowerType typ
 */
 void
 Tower::update() {
-	
+	if(counter) counter--;
+	else {
+		DataCenter *DC = DataCenter::get_instance();
+		for(Monster *monster : DC->monsters) {
+			if(attack(monster)) break;
+		}
+	}
 }
 
 /**

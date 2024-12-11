@@ -26,7 +26,6 @@ void Rod::init(){
 		    RodSetting::state_path_prefix[static_cast<int>(state)]);
             imgpath[static_cast<RodType>(type)][static_cast<Rodstate>(state)]=std::string(buffer);
     }}
-   
     ImageCenter *IC = ImageCenter::get_instance();
     ALLEGRO_BITMAP *bitmap=IC->get(imgpath [type][state]);
     DataCenter *DC = DataCenter::get_instance();

@@ -21,7 +21,7 @@ private:
 		PLACE // -> HALT
 	};
 	STATE state;
-	ALLEGRO_BITMAP *bottom; //update Rod
+	ALLEGRO_BITMAP *bottom;
 	// tower menu bitmap, (top-left x, top-left y), price
 	std::vector<std::tuple<ALLEGRO_BITMAP*, Point, int>> tower_items;
 	int on_item;

@@ -7,7 +7,7 @@
 #include "data/FontCenter.h"
 #include "Player.h"
 #include "Level.h"
-
+#include "hero.h"
 
 #include "fishingRod/Hook.h"
 #include "fishingRod/Rod.h"
@@ -25,7 +25,7 @@ constexpr char game_icon_img_path[] = "./assets/image/game_icon.png";
 constexpr char game_start_sound_path[] = "./assets/sound/growl.wav";
 constexpr char background_img_path[] = "./assets/image/StartBackground.jpg";
 constexpr char background_sound_path[] = "./assets/sound/BackgroundMusic.ogg";
-
+constexpr char background_img2_path[] = "./assets/image/StartBackground2.jpg";
 /**
  * @brief Game entry.
  * @details The function processes all allegro events and update the event state to a generic data storage (i.e. DataCenter).
@@ -136,14 +136,15 @@ Game::game_init() {
 	ui->init();
 
 	DC->level->init();
-	
+	DC->hero->init();
 	DC->rod->init();
 	DC->hook->init();
 //add here
 	// game start
 	background = IC->get(background_img_path);
+	background2 = IC->get(background_img2_path);
 	debug_log("Game state: change to START\n");
-	state = STATE::START;
+	state = STATE::INIT;
 	al_start_timer(timer);
 }
 
@@ -161,6 +162,11 @@ Game::game_update() {
 	static ALLEGRO_SAMPLE_INSTANCE *background = nullptr;
 
 	switch(state) {
+		case STATE::INIT : {
+			if(DC->key_state[ALLEGRO_KEY_Q]){
+				state=STATE::END;
+			}
+		}
 		case STATE::START: {
 			static bool is_played = false;
 			static ALLEGRO_SAMPLE_INSTANCE *instance = nullptr;
@@ -189,7 +195,10 @@ Game::game_update() {
 				debug_log("<Game> state: change to PAUSE\n");
 				state = STATE::PAUSE;
 			}
-			
+			if(DC->level->remain_monsters() == 0 && DC->monsters.size() == 0) {
+				debug_log("<Game> state: change to END\n");
+				state = STATE::END;
+			}
 		
 			if(DC->player->countdown==0 && DC->player->coin< DC->player->goal){
 				debug_log("<Game> state: change to END\n");
@@ -209,6 +218,9 @@ Game::game_update() {
 				debug_log("<Game> state: change to LEVEL\n");
 				state = STATE::LEVEL;
 			}
+			if(DC->key_state[ALLEGRO_KEY_Q]){
+				state=STATE::END;
+			}
 			break;
 		} case STATE::END: {
 			return false;
@@ -221,7 +233,7 @@ Game::game_update() {
 		ui->update();
 		if(state != STATE::START) {
 			DC->level->update();
-			
+			DC->hero->update();
 			DC->hook->update();
 			DC->rod->update();
 			//add here
@@ -245,10 +257,13 @@ Game::game_draw() {
 
 	// Flush the screen first.
 	al_clear_to_color(al_map_rgb(100, 100, 100));
-	if(state != STATE::END) {
+	if(state == STATE::INIT){
+		al_draw_bitmap(background2, 0, 0, 0);
+	}
+	if(state != STATE::END && state != STATE::INIT) {
 		// background
 		al_draw_bitmap(background, 0, 0, 0);
-		if(DC->game_field_length < DC->window_width)
+/*		if(DC->game_field_length < DC->window_width)
 			al_draw_filled_rectangle(
 				DC->game_field_length, 0,
 				DC->window_width, DC->window_height,
@@ -258,11 +273,15 @@ Game::game_draw() {
 				0, DC->game_field_length,
 				DC->window_width, DC->window_height,
 				al_map_rgb(100, 
-				100, 100));
+				100, 100));*/
+		/*	al_draw_filled_rectangle(
+				DC->game_field_length, 0,
+				DC->window_width, DC->window_height*0+170,
+				al_map_rgb(255, 255, 255));*/
 		// user interface
 		if(state != STATE::START) {
 			DC->level->draw();
-		
+			DC->hero->draw();
 			DC->rod->draw();
 			DC->hook->draw();
 			// add here
@@ -271,26 +290,15 @@ Game::game_draw() {
 		}
 	}
 	switch(state) {
+		case STATE::INIT:{
+		}
 		case STATE::START: {
-			al_draw_text(
-				FC->caviar_dreams[FontSize::LARGE], al_map_rgb(255, 255, 255),
-				DC->window_width/2., DC->window_height/4.,
-				ALLEGRO_ALIGN_CENTRE, "G A M E    N A M E");
-			
-			al_draw_text(
-				FC->caviar_dreams[FontSize::LARGE], al_map_rgb(255, 255, 255),
-				DC->window_width/2., DC->window_height/3*2.,
-				ALLEGRO_ALIGN_CENTRE, "Press Enter to continue");
-
 		} case STATE::LEVEL: {
 			break;
 		} case STATE::PAUSE: {
 			// game layout cover
 			al_draw_filled_rectangle(0, 0, DC->window_width, DC->window_height, al_map_rgba(50, 50, 50, 64));
-			al_draw_text(
-				FC->caviar_dreams[FontSize::LARGE], al_map_rgb(255, 255, 255),
-				DC->window_width/2., DC->window_height/2.,
-				ALLEGRO_ALIGN_CENTRE, "GAME PAUSED");
+			al_draw_bitmap(background2, 0, 0, 0);
 			break;
 		} case STATE::END: {
 		}
