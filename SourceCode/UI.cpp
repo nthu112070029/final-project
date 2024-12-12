@@ -23,7 +23,7 @@ void
 UI::init() {
 	DataCenter *DC = DataCenter::get_instance();
 	ImageCenter *IC = ImageCenter::get_instance();
-	love = IC->get(love_img_path);
+
 	int tl_x = DC->game_field_length + tower_img_left_padding;
 	int tl_y = tower_img_top_padding;
 	int max_height = 0;
@@ -171,21 +171,10 @@ UI::draw() {
 		}
 		case STATE::SELECT: {
 			// If a tower is selected, we new a corresponding tower for previewing purpose.
-			if(selected_tower == nullptr) {
-				selected_tower = Tower::create_tower(static_cast<TowerType>(on_item), mouse);
-			} else {
-				selected_tower->shape->update_center_x(mouse.x);
-				selected_tower->shape->update_center_y(mouse.y);
-			}
+		
 		}
 		case STATE::PLACE: {
-			// If we select a tower from menu, we need to preview where the tower will be built and its attack range.
-			ALLEGRO_BITMAP *bitmap = Tower::get_bitmap(static_cast<TowerType>(on_item));
-			al_draw_filled_circle(mouse.x, mouse.y, selected_tower->attack_range(), al_map_rgba(255, 0, 0, 32));
-			int w = al_get_bitmap_width(bitmap);
-			int h = al_get_bitmap_height(bitmap);
-			al_draw_bitmap(bitmap, mouse.x - w / 2, mouse.y - h / 2, 0);
-			break;
+			
 		}
 	}
 }

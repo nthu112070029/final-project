@@ -107,6 +107,7 @@ std::vector<Fish*> &fishs = DC->fishs;
 				Player *&player = DC->player;
 				player->coin +=fishs[i]->get_money();			
 				fishs.erase(fishs.begin()+i);
+			
 				--i;
 			break;
 		}
@@ -117,12 +118,17 @@ void OperationCenter::_update_rod_Hook() {
 	DataCenter *DC = DataCenter::get_instance();
 		Hook*hook = DC->hook;
 		Rod *rod=DC->rod;
+		static Rodstate pre;
 		if(hook->state==Hookstate::up)
 		{
 			rod->state=Rodstate::up;
-			if(rod->type==RodType::plus)rod->usetimes--;
-		}
+				if(rod->type==RodType::plus && pre==Rodstate::down){
 
+				rod->usetimes--;
+
+			}
+		}
+	pre=rod->state;
 }
 
 void OperationCenter::_update_monster_player() {
