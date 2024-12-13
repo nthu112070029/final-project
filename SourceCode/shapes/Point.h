@@ -23,6 +23,7 @@ public:
 	void update_center_x(const double &x) { this->x = x; }
 	void update_center_y(const double &y) { this->y = y; }
 	const ShapeType getType() const { return ShapeType::POINT; }
+	
 public:
 	Point() {}
 	Point(double x, double y) : x{x}, y{y} {}

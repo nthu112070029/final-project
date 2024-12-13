@@ -36,12 +36,12 @@ void Hero::update()
 {
     DataCenter *DC = DataCenter::get_instance();
 
-    if (DC->key_state[ALLEGRO_KEY_A]||DC->key_state[ALLEGRO_KEY_LEFT])
+    if (DC->key_state[ALLEGRO_KEY_A])
     {
         shape->update_center_x(shape->center_x() - speed);
         state = Herostate::left;
     }
-    else if (DC->key_state[ALLEGRO_KEY_D]||DC->key_state[ALLEGRO_KEY_RIGHT])
+    else if (DC->key_state[ALLEGRO_KEY_D])
     {
         shape->update_center_x(shape->center_x() + speed);
         state = Herostate::right;

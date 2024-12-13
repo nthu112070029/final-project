@@ -19,6 +19,8 @@
 #include <allegro5/allegro_acodec.h>
 #include <vector>
 #include <cstring>
+#include "shapes/Rectangle.h"
+#include <iostream>
 
 // fixed settings
 constexpr char game_icon_img_path[] = "./assets/image/game_icon.png";
@@ -161,11 +163,17 @@ Game::game_update() {
 	OperationCenter *OC = OperationCenter::get_instance();
 	SoundCenter *SC = SoundCenter::get_instance();
 	static ALLEGRO_SAMPLE_INSTANCE *background = nullptr;
-
+	ALLEGRO_MOUSE_STATE mouse_state;
+	const Point &mouse = DC->mouse;
 	switch(state) {
 		case STATE::INIT : {
 			if(DC->key_state[ALLEGRO_KEY_Q]){
 				state=STATE::END;
+			}
+			if(mouse.overlap(Rectangle{443.1,463.11,539.44,511.4})){
+				al_get_mouse_state(&mouse_state);
+				if(mouse_state.buttons&1)
+					state=STATE::END;
 			}
 		}
 		case STATE::START: {
@@ -179,9 +187,11 @@ Game::game_update() {
 				is_played = true;
 			}
 
-			if(!SC->is_playing(instance)&&DC->key_state[ALLEGRO_KEY_ENTER]) {
+			if(!SC->is_playing(instance)&&mouse.overlap(Rectangle{73.4,463.11,161.47,511.4}) ){
 				debug_log("<Game> state: change to LEVEL\n");
-				state = STATE::LEVEL;
+				al_get_mouse_state(&mouse_state);
+				if(mouse_state.buttons&1)
+					state=STATE::LEVEL;
 			}
 			break;
 		} case STATE::LEVEL: {
@@ -222,13 +232,24 @@ Game::game_update() {
 			if(DC->key_state[ALLEGRO_KEY_Q]){
 				state=STATE::END;
 			}
+			if(mouse.overlap(Rectangle{443.1,463.11,539.44,511.4})){
+				al_get_mouse_state(&mouse_state);
+				if(mouse_state.buttons&1)
+					state=STATE::END;
+			}
+			if(mouse.overlap(Rectangle{205.5,463.11,390.83,511.4})){
+				al_get_mouse_state(&mouse_state);
+				if(mouse_state.buttons&1){
+					SC->toggle_playing(background);
+					state=STATE::LEVEL;}
+			}
 			break;
 		} case STATE::END: {
 			return false;
 		}
 	}
 	// If the game is not paused, we should progress update.
-	if(state != STATE::PAUSE) {
+	if(state != STATE::PAUSE&&state !=STATE::INIT) {
 		DC->player->update();
 		SC->update();
 		ui->update();

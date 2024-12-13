@@ -3,7 +3,7 @@
 
 #include <allegro5/allegro.h>
 #include "UI.h"
-
+#include "./shapes/Point.h"
 /**
  * @brief Main class that runs the whole game.
  * @details All game procedures must be processed through this class.
