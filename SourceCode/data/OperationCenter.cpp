@@ -3,8 +3,6 @@
 #include "FontCenter.h"
 #include "../monsters/Monster.h"
 #include "../fish/Fish.h"
-#include "../towers/Tower.h"
-#include "../towers/Bullet.h"
 #include "../Player.h"
 #include "../fishingRod/Hook.h"
 #include "../fishingRod/Rod.h"
@@ -20,11 +18,6 @@ void OperationCenter::update() {
 	_update_monster();
 	_update_fish();
 	// Update towers.
-	_update_tower();
-	// Update tower bullets.
-	_update_towerBullet();
-	// If any bullet overlaps with any monster, we delete the bullet, reduce the HP of the monster, and delete the monster if necessary.
-	_update_monster_towerBullet();
 	// If any monster reaches the end, hurt the player and delete the monster.
 	_update_monster_player();
 	_update_fish_Net();
@@ -48,42 +41,6 @@ void OperationCenter::_update_fish() {
 		if(fishs[i]->get_path().empty()) {
 			fishs.erase(fishs.begin()+i);
 			--i;
-		}
-	}
-}
-
-void OperationCenter::_update_tower() {
-	std::vector<Tower*> &towers = DataCenter::get_instance()->towers;
-	for(Tower *tower : towers)
-		tower->update();
-}
-
-void OperationCenter::_update_towerBullet() {
-	std::vector<Bullet*> &towerBullets = DataCenter::get_instance()->towerBullets;
-	for(Bullet *towerBullet : towerBullets)
-		towerBullet->update();
-	// Detect if a bullet flies too far (exceeds its fly distance limit), which means the bullet lifecycle has ended.
-	for(size_t i = 0; i < towerBullets.size(); ++i) {
-		if(towerBullets[i]->get_fly_dist() <= 0) {
-			towerBullets.erase(towerBullets.begin()+i);
-			--i;
-		}
-	}
-}
-
-void OperationCenter::_update_monster_towerBullet() {
-	DataCenter *DC = DataCenter::get_instance();
-	std::vector<Monster*> &monsters = DC->monsters;
-	std::vector<Bullet*> &towerBullets = DC->towerBullets;
-	for(size_t i = 0; i < monsters.size(); ++i) {
-		for(size_t j = 0; j < towerBullets.size(); ++j) {
-			// Check if the bullet overlaps with the monster.
-			if(monsters[i]->shape->overlap(*(towerBullets[j]->shape))) {
-				// Reduce the HP of the monster. Delete the bullet.
-				monsters[i]->HP -= towerBullets[j]->get_dmg();
-				towerBullets.erase(towerBullets.begin()+j);
-				--j;
-			}
 		}
 	}
 }
@@ -175,8 +132,6 @@ void OperationCenter::_update_monster_player() {
 void OperationCenter::draw() {
 	_draw_monster();
 	_draw_fish();
-	_draw_tower();
-	_draw_towerBullet();
 	 _draw_rod_hook();
 }
 
@@ -191,17 +146,9 @@ void OperationCenter::_draw_fish() {
 		fish->draw();
 }
 
-void OperationCenter::_draw_tower() {
-	std::vector<Tower*> &towers = DataCenter::get_instance()->towers;
-	for(Tower *tower : towers)
-		tower->draw();
-}
 
-void OperationCenter::_draw_towerBullet() {
-	std::vector<Bullet*> &towerBullets = DataCenter::get_instance()->towerBullets;
-	for(Bullet *towerBullet : towerBullets)
-		towerBullet->draw();
-}
+
+
 void OperationCenter::_draw_rod_hook(){
 
 	DataCenter *DC = DataCenter::get_instance();

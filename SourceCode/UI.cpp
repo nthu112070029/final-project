@@ -9,7 +9,6 @@
 #include "shapes/Point.h"
 #include "shapes/Rectangle.h"
 #include "Player.h"
-#include "towers/Tower.h"
 #include "Level.h"
 #include "fishingRod/Rod.h"
 #include "fish/Fish.h"
@@ -30,19 +29,6 @@ UI::init() {
 	int tl_y = tower_img_top_padding;
 	int max_height = 0;
 	// arrange tower shop
-	for(size_t i = 0; i < (size_t)(TowerType::TOWERTYPE_MAX); ++i) {
-		ALLEGRO_BITMAP *bitmap = IC->get(TowerSetting::tower_menu_img_path[i]);
-		int w = al_get_bitmap_width(bitmap);
-		int h = al_get_bitmap_height(bitmap);
-		if(tl_x + w > DC->window_width) {
-			tl_x = DC->game_field_length + tower_img_left_padding;
-			tl_y += max_height + tower_img_top_padding;
-			max_height = 0;
-		}
-		tower_items.emplace_back(bitmap, Point{tl_x, tl_y}, TowerSetting::tower_price[i]);
-		tl_x += w + tower_img_left_padding;
-		max_height = std::max(max_height, h);
-	}
 	debug_log("<UI> state: change to HALT\n");
 	state = STATE::HALT;
 	on_item = -1;
@@ -155,7 +141,7 @@ UI::draw() {
 		300,0,
 		ALLEGRO_ALIGN_LEFT, "goal:%4d coin", player_goal);
 	// draw tower shop items
-	for(auto &[bitmap, p, price] : tower_items) {
+	/*for(auto &[bitmap, p, price] : tower_items) {
 		int w = al_get_bitmap_width(bitmap);
 		int h = al_get_bitmap_height(bitmap);
 		al_draw_bitmap(bitmap, p.x, p.y, 0);
@@ -167,7 +153,7 @@ UI::draw() {
 			FC->courier_new[FontSize::MEDIUM], al_map_rgb(0, 0, 0),
 			p.x + w / 2, p.y + h,
 			ALLEGRO_ALIGN_CENTRE, "%d", price);
-	}
+	}*/
 
 	switch(state) {
 		static Tower *selected_tower = nullptr;

@@ -92,12 +92,10 @@ public:
 	 * @brief Raw list of Tower objects.
 	 * @see Tower
 	 */
-	std::vector<Tower*> towers;
 	/**
 	 * @brief Raw list of Bullet objects.
 	 * @see Bullet
 	 */
-	std::vector<Bullet*> towerBullets;
 	Hero *hero;
 	std::vector<Fish*> fishs;
 	Rod *rod;

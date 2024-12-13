@@ -21,6 +21,7 @@
 #include <cstring>
 #include "shapes/Rectangle.h"
 #include <iostream>
+#include "fish/Fish.h"
 
 // fixed settings
 constexpr char game_icon_img_path[] = "./assets/image/game_icon.png";
@@ -222,6 +223,27 @@ Game::game_update() {
 				DC->player->goal=DC->level->goal;
 				
 			}
+			if(mouse.overlap(Rectangle{624.86,41.66,687.65,108.31})){
+				if(DC->mouse_state[1] && !DC->prev_mouse_state[1]){
+					DC->player->coin -=300;
+					DC->rod->usetimes+=10;
+					DC->rod->type=RodType::plus;
+				}			
+			}
+			if(mouse.overlap(Rectangle{724.11,41.66,779.16,108.31})){
+				if(DC->mouse_state[1] && !DC->prev_mouse_state[1]){
+				DC->player->coin -=300;
+				for(Fish *f : DC->fishs) {
+					f->set_v(0);
+				}
+				}	
+			}
+			if(mouse.overlap(Rectangle{624.86,141.66,687.65,218.07})){
+				if(DC->mouse_state[1] && !DC->prev_mouse_state[1]){
+					DC->player->coin -=50;
+					DC->net->show=true;
+				}	
+			}
 			break;
 		} case STATE::PAUSE: {
 			if(DC->key_state[ALLEGRO_KEY_P] && !DC->prev_key_state[ALLEGRO_KEY_P]) {
@@ -286,6 +308,12 @@ Game::game_draw() {
 	if(state != STATE::END && state != STATE::INIT) {
 		// background
 		al_draw_bitmap(background, 0, 0, 0);
+		ALLEGRO_BITMAP* image = al_load_bitmap("./assets/image/image.jpg");
+    	int image_width = al_get_bitmap_width(image);
+    	int image_height = al_get_bitmap_height(image);	
+		int image_x = DC->window_width-image_width;
+		int image_y = 20;
+		al_draw_bitmap(image, image_x, image_y, 0);
 /*		if(DC->game_field_length < DC->window_width)
 			al_draw_filled_rectangle(
 				DC->game_field_length, 0,

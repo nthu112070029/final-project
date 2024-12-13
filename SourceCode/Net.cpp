@@ -94,7 +94,7 @@ Net::update() {
 void
 Net::draw() {
     ImageCenter *IC = ImageCenter::get_instance();
-  
+ 
   if(!show)
   {
   bitmap = IC->get("assets/image/Net/invisible.png");

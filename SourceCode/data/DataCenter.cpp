@@ -5,8 +5,6 @@
 #include "../Player.h"
 #include "../monsters/Monster.h"
 #include "../fish/Fish.h"
-#include "../towers/Tower.h"
-#include "../towers/Bullet.h"
 #include "../fishingRod/Rod.h"
 #include "../fishingRod/Hook.h"
 #include "../Net.h"
@@ -45,11 +43,5 @@ DataCenter::~DataCenter() {
 	}
 	for(Fish *&f : fishs) {
 		delete f;
-	}
-	for(Tower *&t : towers) {
-		delete t;
-	}
-	for(Bullet *&b : towerBullets) {
-		delete b;
 	}
 }
