@@ -23,8 +23,10 @@ public:
 	void update();
 	void draw();
 	const int &get_money() const { return money; }
+	
 	FishType get_type() const { return this->type; }
 	const std::queue<Point> &get_path() const { return path; }
+	void set_v (int V){v=V;}
 protected:
 	
 	int v;
@@ -37,6 +39,9 @@ private:
 	FishType type;
 	Fishstate state;
 	std::queue<Point> path;
+	int timecounter=60;
+	int timefreq=60;
+	int stilltime=5;
 };
 
 #endif

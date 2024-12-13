@@ -8,7 +8,7 @@
 #include "Player.h"
 #include "Level.h"
 #include "hero.h"
-
+#include "Net.h"
 #include "fishingRod/Hook.h"
 #include "fishingRod/Rod.h"
 //add hare
@@ -139,6 +139,7 @@ Game::game_init() {
 	DC->hero->init();
 	DC->rod->init();
 	DC->hook->init();
+	DC->net->init();
 //add here
 	// game start
 	background = IC->get(background_img_path);
@@ -236,6 +237,7 @@ Game::game_update() {
 			DC->hero->update();
 			DC->hook->update();
 			DC->rod->update();
+			DC->net->update();
 			//add here
 			OC->update();
 		}
@@ -284,6 +286,7 @@ Game::game_draw() {
 			DC->hero->draw();
 			DC->rod->draw();
 			DC->hook->draw();
+			DC->net->draw();
 			// add here
 			ui->draw();
 			OC->draw();

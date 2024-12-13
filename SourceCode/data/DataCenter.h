@@ -16,6 +16,7 @@ class Hero;
 class Fish;
 class Rod;
 class Hook;
+class Net;
 
 /**
  * @brief Stores generic global data and relatively small data structures.
@@ -101,6 +102,7 @@ public:
 	std::vector<Fish*> fishs;
 	Rod *rod;
 	Hook *hook;
+	Net *net;
 private:
 	DataCenter();
 };

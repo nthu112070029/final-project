@@ -12,6 +12,8 @@
 #include "towers/Tower.h"
 #include "Level.h"
 #include "fishingRod/Rod.h"
+#include "fish/Fish.h"
+#include "Net.h"
 
 // fixed settings
 constexpr char love_img_path[] = "./assets/image/love.png";
@@ -101,10 +103,25 @@ UI::update() {
 			}
 			break;
 		} case STATE::PLACE: {
-			// check placement legality
-			DC->player->coin -=200;
-			DC->rod->usetimes=10;
+			// update rod
+			DC->player->coin -=300;
+			DC->rod->usetimes+=10;
 			DC->rod->type=RodType::plus;
+
+			//update coldtime effect
+			DC->player->coin -=300;
+			for(Fish *f : DC->fishs) {
+				f->set_v(0);
+			}
+
+			//update net
+			DC->player->coin -=50;
+			DC->net->show=true;
+			
+			
+
+			
+			
 			debug_log("<UI> state: change to HALT\n");
 			state = STATE::HALT;
 			break;

@@ -21,7 +21,7 @@ namespace LevelSetting {
 	constexpr int monster_spawn_rate = 200;
 	constexpr int monster_spawn_rate1 = 300;
 	constexpr int monster_spawn_rate2 = 500;
-	constexpr int monster_spawn_rate3 = 100;
+	constexpr int monster_spawn_rate3 = 600;
 	constexpr int monster_spawn_rate4 = 200;
 };
 

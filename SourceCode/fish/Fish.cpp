@@ -75,6 +75,22 @@ void
 Fish::update() {
 	DataCenter *DC = DataCenter::get_instance();
 	ImageCenter *IC = ImageCenter::get_instance();
+	// coldtime effect
+	if(!v)
+	{
+
+		if(timecounter) --timecounter;
+		else {
+			stilltime--;
+			timecounter = timefreq;
+			if(!stilltime)
+			{
+				v=40;
+					stilltime=5;
+			}
+		}
+
+	}
 
 	// After a period, the bitmap for this monster should switch from (i)-th image to (i+1)-th image to represent animation.
 	if(bitmap_switch_counter) --bitmap_switch_counter;

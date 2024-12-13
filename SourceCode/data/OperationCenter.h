@@ -32,7 +32,7 @@ private:
 	void _update_monster_towerBullet();
 	void _update_monster_player();
 	void _update_rod_Hook();
-
+	void _update_fish_Net();
 	void _update_fish_Hook();
 	
 private:

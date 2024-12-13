@@ -9,6 +9,7 @@
 #include "../towers/Bullet.h"
 #include "../fishingRod/Rod.h"
 #include "../fishingRod/Hook.h"
+#include "../Net.h"
 
 // fixed settings
 namespace DataSetting {
@@ -33,6 +34,7 @@ DataCenter::DataCenter() {
 	hero = new Hero();
 	rod= new Rod();
 	hook= new Hook();
+	net=new Net();
 }
 
 DataCenter::~DataCenter() {

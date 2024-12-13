@@ -8,6 +8,7 @@
 #include "../Player.h"
 #include "../fishingRod/Hook.h"
 #include "../fishingRod/Rod.h"
+#include"../Net.h"
 #include <iostream>
 #include<allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
@@ -26,7 +27,7 @@ void OperationCenter::update() {
 	_update_monster_towerBullet();
 	// If any monster reaches the end, hurt the player and delete the monster.
 	_update_monster_player();
-
+	_update_fish_Net();
 	_update_fish_Hook() ;
 	_update_rod_Hook() ;
 	
@@ -86,7 +87,25 @@ void OperationCenter::_update_monster_towerBullet() {
 		}
 	}
 }
+void OperationCenter:: _update_fish_Net(){
 
+DataCenter *DC = DataCenter::get_instance();
+FontCenter *FC = FontCenter::get_instance();
+std::vector<Fish*> &fishs = DC->fishs;
+	Net* net= DC->net;
+	
+		for(size_t i = 0; i < fishs.size(); ++i){
+		if(fishs[i]->shape->overlap(*(net->shape))){
+				Player *&player = DC->player;
+				player->coin +=fishs[i]->get_money();			
+				fishs.erase(fishs.begin()+i);
+				--i;
+			break;
+		}
+	}
+
+
+}
 void OperationCenter::_update_fish_Hook() {
 DataCenter *DC = DataCenter::get_instance();
 FontCenter *FC = FontCenter::get_instance();
