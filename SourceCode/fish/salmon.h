@@ -11,7 +11,7 @@ class Salmon : public Fish
 	Salmon(const std::vector<Point> &path) : Fish{path, FishType::Salmon} {
 		
 		v = 40;
-		money = 20;
+		money = 40;
 		bitmap_img_ids.emplace_back(std::vector<int>({0, 1})); // swim
 		bitmap_img_ids.emplace_back(std::vector<int>({0, 1})); // up
 		

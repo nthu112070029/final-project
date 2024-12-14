@@ -47,7 +47,7 @@ void OperationCenter::_update_fish() {
 void OperationCenter:: _update_fish_Net(){
 
 DataCenter *DC = DataCenter::get_instance();
-FontCenter *FC = FontCenter::get_instance();
+//FontCenter *FC = FontCenter::get_instance();
 std::vector<Fish*> &fishs = DC->fishs;
 	Net* net= DC->net;
 	

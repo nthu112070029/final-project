@@ -139,7 +139,7 @@ Game::game_init() {
 	ui->init();
 
 	DC->level->init();
-	DC->hero->init();
+	//DC->hero->init();
 	DC->rod->init();
 	DC->hook->init();
 	DC->net->init();
@@ -189,7 +189,7 @@ Game::game_update() {
 			}
 
 			if(!SC->is_playing(instance)&&mouse.overlap(Rectangle{73.4,463.11,161.47,511.4}) ){
-				debug_log("<Game> state: change to LEVEL\n");
+				//debug_log("<Game> state: change to LEVEL\n");
 				al_get_mouse_state(&mouse_state);
 				if(mouse_state.buttons&1)
 					state=STATE::LEVEL;
@@ -207,10 +207,7 @@ Game::game_update() {
 				debug_log("<Game> state: change to PAUSE\n");
 				state = STATE::PAUSE;
 			}
-			if(DC->level->remain_monsters() == 0 && DC->monsters.size() == 0) {
-				debug_log("<Game> state: change to END\n");
-				state = STATE::END;
-			}
+		
 		
 			if(DC->player->countdown==0 && DC->player->coin< DC->player->goal){
 				debug_log("<Game> state: change to END\n");
@@ -218,15 +215,24 @@ Game::game_update() {
 			}
 			if(DC->player->countdown==0 && DC->player->coin>=DC->player->goal){
 				debug_log("<Game> state: change to Level\n");
+				static int level2=0;
+				if(!level2){
 				DC->level->load_level(2);
 				DC->player->countdown=DC->level->time;
 				DC->player->goal=DC->level->goal;
-				
+				level2=1;
+				}
+				else{
+				DC->level->load_level(3);
+				DC->player->countdown=DC->level->time;
+				DC->player->goal=DC->level->goal;
+				}
+
 			}
 			if(mouse.overlap(Rectangle{624.86,41.66,687.65,108.31})){
 				if(DC->mouse_state[1] && !DC->prev_mouse_state[1]){
 					DC->player->coin -=300;
-					DC->rod->usetimes+=10;
+					DC->rod->usetimes+=4;
 					DC->rod->type=RodType::plus;
 				}			
 			}
@@ -277,7 +283,7 @@ Game::game_update() {
 		ui->update();
 		if(state != STATE::START) {
 			DC->level->update();
-			DC->hero->update();
+			//DC->hero->update();
 			DC->hook->update();
 			DC->rod->update();
 			DC->net->update();
@@ -298,7 +304,7 @@ void
 Game::game_draw() {
 	DataCenter *DC = DataCenter::get_instance();
 	OperationCenter *OC = OperationCenter::get_instance();
-	FontCenter *FC = FontCenter::get_instance();
+	//FontCenter *FC = FontCenter::get_instance();
 
 	// Flush the screen first.
 	al_clear_to_color(al_map_rgb(100, 100, 100));
@@ -310,7 +316,7 @@ Game::game_draw() {
 		al_draw_bitmap(background, 0, 0, 0);
 		ALLEGRO_BITMAP* image = al_load_bitmap("./assets/image/image.jpg");
     	int image_width = al_get_bitmap_width(image);
-    	int image_height = al_get_bitmap_height(image);	
+    	//int image_height = al_get_bitmap_height(image);	
 		int image_x = DC->window_width-image_width;
 		int image_y = 20;
 		al_draw_bitmap(image, image_x, image_y, 0);
@@ -332,7 +338,7 @@ Game::game_draw() {
 		// user interface
 		if(state != STATE::START) {
 			DC->level->draw();
-			DC->hero->draw();
+			//DC->hero->draw();
 			DC->rod->draw();
 			DC->hook->draw();
 			DC->net->draw();

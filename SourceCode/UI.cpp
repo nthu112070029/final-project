@@ -25,9 +25,9 @@ UI::init() {
 	DataCenter *DC = DataCenter::get_instance();
 	ImageCenter *IC = ImageCenter::get_instance();
 
-	int tl_x = DC->game_field_length + tower_img_left_padding;
-	int tl_y = tower_img_top_padding;
-	int max_height = 0;
+	//int tl_x = DC->game_field_length + tower_img_left_padding;
+	//int tl_y = tower_img_top_padding;
+	//int max_height = 0;
 	// arrange tower shop
 	debug_log("<UI> state: change to HALT\n");
 	state = STATE::HALT;
@@ -94,7 +94,7 @@ UI::update() {
 			DC->rod->usetimes+=10;
 			DC->rod->type=RodType::plus;
 
-			//update coldtime effect
+			//update stilltime effect
 			DC->player->coin -=300;
 			for(Fish *f : DC->fishs) {
 				f->set_v(0);
@@ -119,9 +119,9 @@ void
 UI::draw() {
 	DataCenter *DC = DataCenter::get_instance();
 	FontCenter *FC = FontCenter::get_instance();
-	const Point &mouse = DC->mouse;
+	//const Point &mouse = DC->mouse;
 	// draw HP
-	const int &game_field_length = DC->game_field_length;
+	//const int &game_field_length = DC->game_field_length;
 	// draw coin
 	const int &player_coin = DC->player->coin;
 	al_draw_textf(
@@ -159,10 +159,10 @@ UI::draw() {
 		static Tower *selected_tower = nullptr;
 		case STATE::HALT: {
 			// No tower should be selected for HALT state.
-			if(selected_tower != nullptr) {
+			/*if(selected_tower != nullptr) {
 				delete selected_tower;
 				selected_tower = nullptr;
-			}
+			}*/
 			break;
 		} case STATE::HOVER: {
 			auto &[bitmap, p, price] = tower_items[on_item];

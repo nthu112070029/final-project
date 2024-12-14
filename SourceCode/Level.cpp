@@ -18,10 +18,10 @@ namespace LevelSetting {
 	constexpr array<int, 4> grid_size = {
 		85,85,85,85
 	};
-	constexpr int monster_spawn_rate = 200;
+	constexpr int monster_spawn_rate = 400;
 	constexpr int monster_spawn_rate1 = 300;
 	constexpr int monster_spawn_rate2 = 500;
-	constexpr int monster_spawn_rate3 = 600;
+	constexpr int monster_spawn_rate3 = 250;
 	constexpr int monster_spawn_rate4 = 200;
 };
 
@@ -189,7 +189,7 @@ Level::update() {
 
 void
 Level::draw() {
-	DataCenter *DC = DataCenter::get_instance();
+	
 	if(level == -1) return;
 	for(auto &[i, j] : road_path) {
 		int x1 = i * LevelSetting::grid_size[level];
